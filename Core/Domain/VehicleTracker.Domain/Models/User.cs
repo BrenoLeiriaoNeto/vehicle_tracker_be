@@ -10,7 +10,7 @@ public class User : BusinessValues
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
     public required string Name { get; set; }
-    public required UserRole Role { get; set; }
+    public required UserRole Role { get; set; } = UserRole.Driver;
 
     public string? OwnerId { get; set; }
 

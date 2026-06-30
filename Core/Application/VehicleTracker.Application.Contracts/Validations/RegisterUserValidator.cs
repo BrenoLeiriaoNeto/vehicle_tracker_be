@@ -20,12 +20,6 @@ public class RegisterUserValidator : AbstractValidator<CreateUserInputModel>
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("O nome é obrigatório")
             .MaximumLength(100).WithMessage("O nome não pode passar de 100 caracteres");
-
-        RuleFor(x => x.Role)
-            .IsInEnum().WithMessage("Role inválida.");
         
-        RuleFor(x => x.OwnerId)
-            .NotEmpty().WithMessage("Um motorista precisa estar vinculado a um gerente de frota.")
-            .When(x => x.Role == UserRole.Driver);
     }
 }

@@ -59,7 +59,12 @@ public static class InfraServiceCollectionExtensions
         {
             IServiceCollection.ConfigureMongoMapping();
             
-            var mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection"));
+            var connectionString = configuration.GetConnectionString("MongoConnection");
+
+            ArgumentException.ThrowIfNullOrWhiteSpace(connectionString,
+                "A ConnectionString não foi encontrada.");
+            
+            var mongoClient = new MongoClient(connectionString);
             var mongoDatabase = mongoClient.GetDatabase("VehicleTrackerDb");
 
             services.AddSingleton(mongoDatabase);

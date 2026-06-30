@@ -6,11 +6,11 @@ namespace VehicleTracker.Domain.Models;
 public class User : BusinessValues
 {
     // Auth related stuff
-    public required string Id { get; set; }
-    public required string Email { get; set; }
-    public required string PasswordHash { get; set; }
-    public required string Name { get; set; }
-    public required UserRole Role { get; set; } = UserRole.Driver;
+    public string Id { get; set; } = string.Empty;
+    public string Email { get; private set; }
+    public string PasswordHash { get; private set; }
+    public string Name { get; private set; }
+    public UserRole Role { get; private set; }
 
     public string? OwnerId { get; set; }
 
@@ -22,16 +22,13 @@ public class User : BusinessValues
     public string? Bio { get; set; }
 
     public User() {}
-
-    [SetsRequiredMembers]
-    public User(string id, string email, string passwordHash, string name, UserRole role, string? ownerId)
+    
+    public User(string email, string passwordHash, string name, UserRole? role = null)
     {
-        Id = id;
         Email = email;
         PasswordHash = passwordHash;
         Name = name;
-        Role = role;
-        OwnerId = ownerId;
+        Role = role ?? UserRole.Driver;
         
         SystemGenerated();
     }

@@ -34,12 +34,9 @@ public class UserMapper(
         var passwordHash = passwordHasher.HashPassword(input.Password);
 
         return new User(
-            id: null!,
             email: input.Email,
             passwordHash: passwordHash,
-            name: input.Name,
-            role: input.Role,
-            ownerId: input.OwnerId
+            name: input.Name
         );
     }
 }

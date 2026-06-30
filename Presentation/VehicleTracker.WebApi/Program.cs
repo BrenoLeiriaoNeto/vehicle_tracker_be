@@ -1,5 +1,7 @@
+using OpenTelemetry.Logs;
 using VehicleTracker.Infrastructure.DependencyInjection;
 using VehicleTracker.Application;
+using VehicleTracker.Infrastructure.Auth;
 using VehicleTracker.WebApi.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,19 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly);
+});
+
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.IncludeScopes = true;
+
+    logging.AddOtlpExporter();
+});
 
 var app = builder.Build();
 

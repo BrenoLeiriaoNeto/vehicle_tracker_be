@@ -8,11 +8,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8"/>
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.16.0" />
     </ItemGroup>
     
     <ItemGroup>
         <ProjectReference Include="..\..\Core\Application\VehicleTracker.Application.Exceptions\VehicleTracker.Application.Exceptions.csproj" />
         <ProjectReference Include="..\..\Core\Shared\VehicleTracker.Exceptions\VehicleTracker.Exceptions.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\VehicleTracker.Infrastructure.Auth\VehicleTracker.Infrastructure.Auth.csproj" />
         <ProjectReference Include="..\..\Infrastructure\VehicleTracker.Infrastructure.DependencyInjection\VehicleTracker.Infrastructure.DependencyInjection.csproj" />
         <ProjectReference Include="..\..\Core\Application\VehicleTracker.Application\VehicleTracker.Application.csproj" />
     </ItemGroup>

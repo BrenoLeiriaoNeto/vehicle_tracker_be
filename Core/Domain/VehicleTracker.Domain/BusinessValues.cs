@@ -6,7 +6,7 @@ public abstract class BusinessValues : IBusinessValues
 {
     public string CreatedBy { get; set; } = string.Empty;
     public string CreatedById { get; set; } = string.Empty;
-    public required DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     public string? UpdatedBy { get; set; }
     public string? UpdatedById { get; set; }
@@ -16,7 +16,7 @@ public abstract class BusinessValues : IBusinessValues
     public string? DeletedById { get; set; }
     public DateTime? DeletedAt { get; set; }
 
-    public void SystemGenerated()
+    protected void SystemGenerated()
     {
         CreatedBy = "System";
         CreatedById = "System";

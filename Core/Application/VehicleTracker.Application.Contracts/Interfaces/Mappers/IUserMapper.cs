@@ -8,4 +8,5 @@ public interface IUserMapper
 {
     AuthViewModel MapToViewModel(User domain);
     User MapToDomain(CreateUserInputModel input);
+    User MapToDomain(CreateDriverByInviteInputModel input);
 }

@@ -8,6 +8,11 @@ public class AuthCommandRepository(IMongoDatabase database) : IAuthCommandReposi
 {
     private readonly IMongoCollection<User> _usersCollection = database.GetCollection<User>("Users");
 
+    public async Task CreateUserAsync(IClientSessionHandle session, User user, CancellationToken ct)
+    {
+        await _usersCollection.InsertOneAsync(session, user, null, ct);
+    }
+
     public async Task CreateUserAsync(User user, CancellationToken ct)
     {
         await _usersCollection.InsertOneAsync(user, null, ct);

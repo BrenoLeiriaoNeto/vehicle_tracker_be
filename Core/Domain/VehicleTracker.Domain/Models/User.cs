@@ -33,4 +33,9 @@ public class User : BusinessValues
         
         SystemGenerated();
     }
+    
+    public void SetOwner(string ownerId)
+    {
+        OwnerId = ownerId;
+    }
 }

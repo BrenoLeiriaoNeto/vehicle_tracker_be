@@ -39,4 +39,15 @@ public class UserMapper(
             name: input.Name
         );
     }
+
+    public User MapToDomain(CreateDriverByInviteInputModel input)
+    {
+        var passwordHash = passwordHasher.HashPassword(input.Password);
+        
+        return new User(
+            email: input.Email,
+            passwordHash: passwordHash,
+            name: input.Name
+        );
+    }
 }

@@ -14,9 +14,10 @@ public class InvitationCommandRepository(IMongoDatabase database) : IInvitationC
         await _invitationsCollection.InsertOneAsync(invitation, null, ct);
     }
 
-    public async Task UpdateInvitationAsync(Invitation invitation, CancellationToken ct)
+    public async Task UpdateInvitationAsync(IClientSessionHandle session, Invitation invitation, CancellationToken ct)
     {
-        await _invitationsCollection.ReplaceOneAsync(x => x.Id == invitation.Id, invitation,
+        await _invitationsCollection.ReplaceOneAsync(session, x => x.Id == invitation.Id,
+            invitation,
             cancellationToken: ct);
     }
 }

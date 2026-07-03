@@ -1,18 +1,14 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.IdGenerators;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
 using VehicleTracker.Application.Contracts.Interfaces.Services;
-using VehicleTracker.Domain.Models;
 using VehicleTracker.Infrastructure.Services;
 using VehicleTracker.Infrastructure.Services.Settings;
 using VehicleTracker.Persistence.Command;
 using VehicleTracker.Persistence.Query;
+using VehicleTracker.Persistence.MongoMappers;
 
 namespace VehicleTracker.Infrastructure.DependencyInjection;
 
@@ -40,24 +36,10 @@ public static class InfraServiceCollectionExtensions
             return services;
         }
 
-        private static void ConfigureMongoMapping()
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(User)))
-            {
-                BsonClassMap.RegisterClassMap<User>(cm =>
-                {
-                    cm.AutoMap();
-
-                    cm.MapIdProperty(c => c.Id)
-                        .SetIdGenerator(StringObjectIdGenerator.Instance)
-                        .SetSerializer(new StringSerializer(BsonType.ObjectId));
-                });
-            }
-        }
-
         private IServiceCollection AddPersistence(IConfiguration configuration)
         {
-            IServiceCollection.ConfigureMongoMapping();
+            MongoMappingExtensions.ConfigureUserMapping();
+            MongoMappingExtensions.ConfigureInvitationMapping();
             
             var connectionString = configuration.GetConnectionString("MongoConnection");
 
@@ -76,6 +58,9 @@ public static class InfraServiceCollectionExtensions
         {
             services.AddScoped<IAuthCommandRepository, AuthCommandRepository>();
             services.AddScoped<IAuthQueryRepository, AuthQueryRepository>();
+            
+            services.AddScoped<IInvitationCommandRepository, InvitationCommandRepository>();
+            services.AddScoped<IInvitationQueryRepository, InvitationQueryRepository>();
 
             return services;
         }

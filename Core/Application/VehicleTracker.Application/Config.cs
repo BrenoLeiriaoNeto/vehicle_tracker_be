@@ -19,6 +19,7 @@ public static class Config
         private IServiceCollection AddMappers()
         {
             services.AddScoped<IUserMapper, UserMapper>();
+            services.AddScoped<IInvitationMapper, InvitationMapper>();
 
             return services;
         }

@@ -11,6 +11,7 @@ public class User : BusinessValues
     public string PasswordHash { get; private set; }
     public string Name { get; private set; }
     public UserRole Role { get; private set; }
+    public UserStatus Status { get; set; } = UserStatus.Active;
 
     public string? OwnerId { get; set; }
 

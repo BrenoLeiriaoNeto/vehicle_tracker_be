@@ -23,11 +23,10 @@ public abstract class BusinessValues : IBusinessValues
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void MarkCreated(string createdBy, string createdById, DateTime createdAt)
+    public void MarkCreated(string createdBy, string createdById)
     {
         CreatedBy = createdBy;
         CreatedById = createdById;
-        CreatedAt = createdAt;
     }
 
     public void MarkUpdated(string updatedBy, string updatedById, DateTime updatedAt)

@@ -22,7 +22,8 @@
       <ProjectReference Include="..\..\Core\Application\VehicleTracker.Application.Contracts\VehicleTracker.Application.Contracts.csproj" />
       <ProjectReference Include="..\..\Persistence\VehicleTracker.Persistence.Command\VehicleTracker.Persistence.Command.csproj" />
       <ProjectReference Include="..\..\Persistence\VehicleTracker.Persistence.Query\VehicleTracker.Persistence.Query.csproj" />
-      <ProjectReference Include="..\VehicleTracker.Infrastructure.Services\VehicleTracker.Infrastructure.Services.csproj" />
+      <ProjectReference Include="..\..\Persistence\VehicleTracker.Persistence.MongoMappers\VehicleTracker.Persistence.MongoMappers.csproj" />
+        <ProjectReference Include="..\VehicleTracker.Infrastructure.Services\VehicleTracker.Infrastructure.Services.csproj" />
     </ItemGroup>
 
 </Project>

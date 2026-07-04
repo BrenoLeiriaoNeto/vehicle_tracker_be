@@ -7,21 +7,18 @@ using VehicleTracker.Domain.Models;
 namespace VehicleTracker.Application.Mappers;
 
 public class UserMapper(
-    IPasswordHasher passwordHasher,
-    IJwtProvider jwtProvider
+    IPasswordHasher passwordHasher
     ) : IUserMapper
 {
-    public AuthViewModel MapToViewModel(User domain)
+    public AuthViewModel MapToViewModel(User domain, string accessToken, string refreshToken,
+        DateTime expiresAt)
     {
-        var accessToken = jwtProvider.GenerateToken(domain);
-        var refreshToken = jwtProvider.GenerateRefreshToken();
-        var expiresAt = DateTime.UtcNow.AddMinutes(15);
         
         var sessionInfo = new UserSessionInfo(
             domain.Id,
             domain.Name,
-            domain.Email,
-            domain.Role.ToString(),
+            domain.Auth.Email,
+            domain.Auth.Role.ToString(),
             domain.OwnerId,
             domain.AvatarUrl
         );
@@ -31,22 +28,20 @@ public class UserMapper(
 
     public User MapToDomain(CreateUserInputModel input)
     {
-        var passwordHash = passwordHasher.HashPassword(input.Password);
 
         return new User(
             email: input.Email,
-            passwordHash: passwordHash,
+            passwordHash: input.Password,
             name: input.Name
         );
     }
 
     public User MapToDomain(CreateDriverByInviteInputModel input)
     {
-        var passwordHash = passwordHasher.HashPassword(input.Password);
         
         return new User(
             email: input.Email,
-            passwordHash: passwordHash,
+            passwordHash: input.Password,
             name: input.Name
         );
     }

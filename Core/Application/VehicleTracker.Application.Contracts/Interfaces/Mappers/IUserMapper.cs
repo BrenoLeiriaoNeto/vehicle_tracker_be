@@ -6,7 +6,8 @@ namespace VehicleTracker.Application.Contracts.Interfaces.Mappers;
 
 public interface IUserMapper
 {
-    AuthViewModel MapToViewModel(User domain);
+    AuthViewModel MapToViewModel(User domain, string accessToken, string refreshToken,
+        DateTime expiresAt);
     User MapToDomain(CreateUserInputModel input);
     User MapToDomain(CreateDriverByInviteInputModel input);
 }

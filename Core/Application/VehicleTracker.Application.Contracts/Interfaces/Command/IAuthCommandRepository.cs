@@ -7,4 +7,5 @@ public interface IAuthCommandRepository
 {
     Task CreateUserAsync(IClientSessionHandle session, User user, CancellationToken ct);
     Task CreateUserAsync(User user, CancellationToken ct);
+    Task UpdateUserAsync(string userId, string refreshToken, CancellationToken ct);
 }

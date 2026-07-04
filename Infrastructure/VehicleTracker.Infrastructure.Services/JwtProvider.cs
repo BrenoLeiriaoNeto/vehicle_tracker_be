@@ -23,8 +23,8 @@ public class JwtProvider(IOptions<JwtSettings> options) : IJwtProvider
         {
             new(JwtRegisteredClaimNames.Sub, user.Id),
             new(JwtRegisteredClaimNames.Name, user.Name),
-            new(JwtRegisteredClaimNames.Email, user.Email),
-            new(ClaimTypes.Role, user.Role.ToString())
+            new(JwtRegisteredClaimNames.Email, user.Auth.Email),
+            new(ClaimTypes.Role, user.Auth.Role.ToString())
         };
 
         if (!string.IsNullOrEmpty(user.OwnerId))

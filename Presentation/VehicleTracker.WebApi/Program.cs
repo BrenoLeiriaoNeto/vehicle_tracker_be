@@ -1,7 +1,7 @@
 using OpenTelemetry.Logs;
 using VehicleTracker.Infrastructure.DependencyInjection;
 using VehicleTracker.Application;
-using VehicleTracker.Infrastructure.Auth;
+using VehicleTracker.Application.Handlers.Auth.Handlers;
 using VehicleTracker.WebApi.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);

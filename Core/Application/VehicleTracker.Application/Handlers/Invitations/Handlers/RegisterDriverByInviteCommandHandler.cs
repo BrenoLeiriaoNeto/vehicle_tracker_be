@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
+using VehicleTracker.Application.Contracts.Interfaces.Services;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
 using VehicleTracker.Application.Handlers.Invitations.Command;
 using VehicleTracker.Exceptions;
@@ -14,7 +15,9 @@ public class RegisterDriverByInviteCommandHandler(
     IInvitationQueryRepository queryRepository,
     IAuthCommandRepository authCommandRepository,
     IUserMapper userMapper,
-    IMongoClient mongoClient
+    IMongoClient mongoClient,
+    IJwtProvider jwtProvider,
+    IPasswordHasher passwordHasher
     ) : IRequestHandler<RegisterDriverByInviteCommand, AuthViewModel>
 {
     public async Task<AuthViewModel> Handle(RegisterDriverByInviteCommand request,
@@ -31,6 +34,12 @@ public class RegisterDriverByInviteCommandHandler(
                 "Este convite expirou, já foi utilizado ou não foi emitido para este e-mail.");
 
         var newDriver = userMapper.MapToDomain(request.Driver);
+        
+        var accessToken = jwtProvider.GenerateToken(newDriver);
+        var refreshToken = jwtProvider.GenerateRefreshToken();
+        var expiresAt = DateTime.UtcNow.AddMinutes(15);
+
+        newDriver.Auth.SetPassword(passwordHasher.HashPassword(newDriver.Auth.PasswordHash));
         
         newDriver.SetOwner(invitation.OwnerId);
         
@@ -54,6 +63,6 @@ public class RegisterDriverByInviteCommandHandler(
             throw;
         }
         
-        return userMapper.MapToViewModel(newDriver);
+        return userMapper.MapToViewModel(newDriver, accessToken, refreshToken, expiresAt);
     }
 }

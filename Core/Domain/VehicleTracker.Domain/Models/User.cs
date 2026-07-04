@@ -1,19 +1,17 @@
 using System.Diagnostics.CodeAnalysis;
+using VehicleTracker.Domain.Embedded;
 using VehicleTracker.Domain.Enums;
 
 namespace VehicleTracker.Domain.Models;
 
 public class User : BusinessValues
 {
-    // Auth related stuff
     public string Id { get; set; } = string.Empty;
-    public string Email { get; private set; }
-    public string PasswordHash { get; private set; }
-    public string Name { get; private set; }
-    public UserRole Role { get; private set; }
-    public UserStatus Status { get; set; } = UserStatus.Active;
-
+    public string Name { get; private set; } = string.Empty;
     public string? OwnerId { get; set; }
+    
+    // Auth related stuff
+    public UserAuth Auth { get; private set; } = null!;
 
     // Profile related stuff
     public string? AvatarUrl { get; set; }
@@ -26,16 +24,12 @@ public class User : BusinessValues
     
     public User(string email, string passwordHash, string name, UserRole? role = null)
     {
-        Email = email;
-        PasswordHash = passwordHash;
         Name = name;
-        Role = role ?? UserRole.Driver;
+        Auth = new UserAuth(email, passwordHash, role ?? UserRole.Driver);
         
         SystemGenerated();
     }
     
-    public void SetOwner(string ownerId)
-    {
-        OwnerId = ownerId;
-    }
+    public void SetOwner(string ownerId) => OwnerId = ownerId;
+    
 }

@@ -17,4 +17,15 @@ public class AuthCommandRepository(IMongoDatabase database) : IAuthCommandReposi
     {
         await _usersCollection.InsertOneAsync(user, null, ct);
     }
+
+    public async Task UpdateUserAsync(string userId, string refreshToken, CancellationToken ct)
+    {
+        var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+
+        var update = Builders<User>.Update
+            .Set(x => x.Auth.RefreshToken, refreshToken)
+            .Set(x => x.Auth.RefreshTokenExpiresAt, DateTime.UtcNow.AddMinutes(15));
+
+        await _usersCollection.UpdateOneAsync(filter, update, cancellationToken: ct);
+    }
 }

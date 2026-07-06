@@ -2,9 +2,9 @@ using MediatR;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.Handlers.Invitations.Command;
+using VehicleTracker.Application.UseCases.Invitations.Command;
 
-namespace VehicleTracker.Application.Handlers.Invitations.Handlers;
+namespace VehicleTracker.Application.UseCases.Invitations.Handlers;
 
 public class CreateInvitationCommandHandler(
     IInvitationCommandRepository commandRepository,

@@ -7,8 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\Invitations\Query\" />
-      <Folder Include="Handlers\Profile\" />
+      <Folder Include="UseCases\Driver\Query\" />
+      <Folder Include="UseCases\Invitations\Query\" />
+      <Folder Include="UseCases\Profile\" />
     </ItemGroup>
 
     <ItemGroup>

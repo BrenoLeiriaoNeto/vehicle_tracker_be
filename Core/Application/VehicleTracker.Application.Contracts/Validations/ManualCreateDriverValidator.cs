@@ -4,18 +4,15 @@ using VehicleTracker.Application.Contracts.Models.InputModels;
 
 namespace VehicleTracker.Application.Contracts.Validations;
 
-public class CreateDriverByInviteValidator : AbstractValidator<CreateDriverByInviteInputModel>
+public class ManualCreateDriverValidator : AbstractValidator<CreateUserInputModel>
 {
-    public CreateDriverByInviteValidator(IAuthQueryRepository queryRepository)
+    public ManualCreateDriverValidator(IAuthQueryRepository queryRepository)
     {
 
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("O nome é obrigatório.")
+            .NotEmpty().WithMessage("Nome é obrigatório.")
             .MaximumLength(100).WithMessage("Nome não pode ter mais de 100 caracteres.");
-
-        RuleFor(x => x.InviteCode)
-            .NotEmpty().WithMessage("O código de convite é obrigatório");
-
+        
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("O e-mail é obrigatório")
             .EmailAddress().WithMessage("Formato de e-mail inválido")

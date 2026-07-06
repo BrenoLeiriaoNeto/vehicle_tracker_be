@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Application.Exceptions", "Core\Application\VehicleTracker.Application.Exceptions\VehicleTracker.Application.Exceptions.csproj", "{51A5B706-8879-4421-8357-89F7E420F52F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Persistence.MongoMappers", "Persistence\VehicleTracker.Persistence.MongoMappers\VehicleTracker.Persistence.MongoMappers.csproj", "{CE241A47-88AF-41C0-9B06-B72A2CF50A6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Persistence.MongoConfigurations", "Persistence\VehicleTracker.Persistence.MongoConfigurations\VehicleTracker.Persistence.MongoConfigurations.csproj", "{CE241A47-88AF-41C0-9B06-B72A2CF50A6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

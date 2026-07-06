@@ -14,5 +14,6 @@ public record AuthViewModel
         string Email,
         string Role,
         string? OwnerId,
-        string? AvatarUrl
+        string? AvatarUrl,
+        bool MustChangePassword
         );

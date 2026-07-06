@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.Handlers.Auth.Command;
-using VehicleTracker.Application.Handlers.Auth.Query;
-using VehicleTracker.Application.Handlers.Invitations.Command;
+using VehicleTracker.Application.UseCases.Auth.Command;
+using VehicleTracker.Application.UseCases.Auth.Query;
+using VehicleTracker.Application.UseCases.Invitations.Command;
 
 namespace VehicleTracker.WebApi.Controllers;
 

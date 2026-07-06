@@ -8,7 +8,7 @@ using VehicleTracker.Infrastructure.Services;
 using VehicleTracker.Infrastructure.Services.Settings;
 using VehicleTracker.Persistence.Command;
 using VehicleTracker.Persistence.Query;
-using VehicleTracker.Persistence.MongoMappers;
+using VehicleTracker.Persistence.MongoConfigurations;
 
 namespace VehicleTracker.Infrastructure.DependencyInjection;
 
@@ -47,8 +47,9 @@ public static class InfraServiceCollectionExtensions
                 "A ConnectionString não foi encontrada.");
             
             var mongoClient = new MongoClient(connectionString);
+            services.AddSingleton<IMongoClient>(mongoClient);
+            
             var mongoDatabase = mongoClient.GetDatabase("VehicleTrackerDb");
-
             services.AddSingleton(mongoDatabase);
 
             return services;

@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using VehicleTracker.Domain.Embedded;
 using VehicleTracker.Domain.Enums;
 
@@ -22,10 +21,19 @@ public class User : BusinessValues
 
     public User() {}
     
-    public User(string email, string passwordHash, string name, UserRole? role = null)
+    public User(
+        string email,
+        string passwordHash,
+        string name,
+        UserRole? role = null,
+        bool? mustChangePassword = null)
     {
         Name = name;
-        Auth = new UserAuth(email, passwordHash, role ?? UserRole.Driver);
+        Auth = new UserAuth(
+            email,
+            passwordHash,
+            role ?? UserRole.Driver,
+            mustChangePassword ?? false);
         
         SystemGenerated();
     }

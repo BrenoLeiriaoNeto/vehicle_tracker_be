@@ -1,8 +1,9 @@
 using OpenTelemetry.Logs;
 using VehicleTracker.Infrastructure.DependencyInjection;
 using VehicleTracker.Application;
-using VehicleTracker.Application.Handlers.Auth.Handlers;
+using VehicleTracker.Application.UseCases.Auth.Handlers;
 using VehicleTracker.WebApi.Exceptions;
+using VehicleTracker.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,4 +42,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 
-app.Run();
+await app.ApplyMongoIndexesAsync();
+
+await app.RunAsync();

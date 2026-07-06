@@ -10,10 +10,8 @@ namespace VehicleTracker.WebApi;
 [Authorize]
 public abstract class ApiControllerBase : ControllerBase
 {
-    private IMediator? _mediator;
-
     protected IMediator Mediator =>
-        _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
+        field ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
 
     protected string CurrentUserId
     {
@@ -22,12 +20,9 @@ public abstract class ApiControllerBase : ControllerBase
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
                          ?? User.FindFirst("sub")?.Value;
 
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new InvalidOperationException("O ID do usuário não foi encontrado no token.");
-            }
-
-            return userId;
+            return string.IsNullOrEmpty(userId) 
+                ? throw new InvalidOperationException("O ID do usuário não foi encontrado no token.")
+                : userId;
         }
     }
 }

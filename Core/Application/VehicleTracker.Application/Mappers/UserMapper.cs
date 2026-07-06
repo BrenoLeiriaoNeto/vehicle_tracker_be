@@ -1,5 +1,4 @@
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
-using VehicleTracker.Application.Contracts.Interfaces.Services;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
 using VehicleTracker.Domain.Models;
@@ -7,7 +6,6 @@ using VehicleTracker.Domain.Models;
 namespace VehicleTracker.Application.Mappers;
 
 public class UserMapper(
-    IPasswordHasher passwordHasher
     ) : IUserMapper
 {
     public AuthViewModel MapToViewModel(User domain, string accessToken, string refreshToken,
@@ -20,7 +18,8 @@ public class UserMapper(
             domain.Auth.Email,
             domain.Auth.Role.ToString(),
             domain.OwnerId,
-            domain.AvatarUrl
+            domain.AvatarUrl,
+            domain.Auth.MustChangePassword
         );
         
         return new AuthViewModel(accessToken, refreshToken, expiresAt, sessionInfo);

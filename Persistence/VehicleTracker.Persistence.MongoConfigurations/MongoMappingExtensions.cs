@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 using VehicleTracker.Domain.Models;
 
-namespace VehicleTracker.Persistence.MongoMappers;
+namespace VehicleTracker.Persistence.MongoConfigurations;
 
 public static class MongoMappingExtensions
 {
@@ -19,11 +19,6 @@ public static class MongoMappingExtensions
                 cm.MapIdProperty(c => c.Id)
                     .SetIdGenerator(StringObjectIdGenerator.Instance)
                     .SetSerializer(new StringSerializer(BsonType.ObjectId));
-
-                cm.MapConstructor(typeof(Invitation).GetConstructor(
-                    System.Reflection.BindingFlags.Instance |
-                    System.Reflection.BindingFlags.NonPublic,
-                    null, Type.EmptyTypes, null));
             });
         }
     }

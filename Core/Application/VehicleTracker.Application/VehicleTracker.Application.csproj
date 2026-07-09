@@ -6,4 +6,28 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="UseCases\Driver\Query\" />
+      <Folder Include="UseCases\Invitations\Query\" />
+      <Folder Include="UseCases\Profile\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="14.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\VehicleTracker.Exceptions\VehicleTracker.Exceptions.csproj" />
+      <ProjectReference Include="..\VehicleTracker.Application.Contracts\VehicleTracker.Application.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.extensions.configuration.abstractions\10.0.9\lib\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="MongoDB.Driver">
+        <HintPath>..\..\..\..\..\.nuget\packages\mongodb.driver\3.9.0\lib\net6.0\MongoDB.Driver.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

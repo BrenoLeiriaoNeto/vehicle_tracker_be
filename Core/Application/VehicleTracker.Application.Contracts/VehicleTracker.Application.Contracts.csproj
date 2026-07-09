@@ -6,4 +6,22 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\UpdateModels\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\VehicleTracker.Domain\VehicleTracker.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="MongoDB.Driver">
+        <HintPath>..\..\..\..\..\.nuget\packages\mongodb.driver\3.9.0\lib\net6.0\MongoDB.Driver.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

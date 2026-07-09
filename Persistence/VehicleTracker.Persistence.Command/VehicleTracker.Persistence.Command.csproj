@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Core\Application\VehicleTracker.Application.Contracts\VehicleTracker.Application.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="3.9.0" />
+    </ItemGroup>
+
 </Project>

@@ -40,6 +40,7 @@ public static class InfraServiceCollectionExtensions
         {
             MongoMappingExtensions.ConfigureUserMapping();
             MongoMappingExtensions.ConfigureInvitationMapping();
+            MongoMappingExtensions.ConfigureVehicleMapping();
             
             var connectionString = configuration.GetConnectionString("MongoConnection");
 
@@ -62,6 +63,9 @@ public static class InfraServiceCollectionExtensions
             
             services.AddScoped<IInvitationCommandRepository, InvitationCommandRepository>();
             services.AddScoped<IInvitationQueryRepository, InvitationQueryRepository>();
+            
+            services.AddScoped<IVehicleCommandRepository, VehicleCommandRepository>();
+            services.AddScoped<IVehicleQueryRepository, VehicleQueryRepository>();
 
             return services;
         }

@@ -9,4 +9,5 @@ public interface IVehicleQueryRepository
     Task<Vehicle> GetVehicleByIdAsync(string id, CancellationToken ct);
     Task<IEnumerable<Vehicle>> GetVehiclesByStatusAsync(VehicleStatus status, CancellationToken ct);
     Task<IEnumerable<Vehicle>> GetVehiclesByUserIdAsync(string userId, CancellationToken ct);
+    Task<bool> IsPlateUnique(string plate, CancellationToken ct);
 }

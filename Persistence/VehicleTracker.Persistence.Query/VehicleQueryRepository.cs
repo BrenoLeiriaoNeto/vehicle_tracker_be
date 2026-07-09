@@ -42,4 +42,15 @@ public class VehicleQueryRepository(IMongoDatabase database) : IVehicleQueryRepo
         
         return await _vehiclesCollection.Find(filter).ToListAsync(ct);
     }
+
+    public async Task<bool> IsPlateUnique(string plate, CancellationToken ct)
+    {
+        var filter = Builders<Vehicle>.Filter.And(
+            Builders<Vehicle>.Filter.Eq(x => x.Plate, plate.ToUpper().Trim()),
+            Builders<Vehicle>.Filter.Eq(x => x.IsDeleted, false));
+        
+        var anyExists = await _vehiclesCollection.Find(filter).AnyAsync(ct);
+
+        return !anyExists;
+    }
 }

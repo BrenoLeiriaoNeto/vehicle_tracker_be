@@ -20,6 +20,7 @@ public static class Config
         {
             services.AddScoped<IUserMapper, UserMapper>();
             services.AddScoped<IInvitationMapper, InvitationMapper>();
+            services.AddScoped<IVehicleMapper, VehicleMapper>();
 
             return services;
         }

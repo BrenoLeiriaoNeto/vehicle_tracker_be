@@ -16,6 +16,12 @@ public class Vehicle : BusinessValues
     public bool IsDeleted { get; private set; } = false;
 
     public Vehicle() {}
+
+    public Vehicle(double? currentKm, VehicleStatus? status)
+    {
+        CurrentKm = currentKm ?? CurrentKm;
+        Status = status ?? Status;
+    }
     
     public Vehicle(string plate, string brand, string model, string year, double currentKm,
         VehicleStatus status, string ownerId)

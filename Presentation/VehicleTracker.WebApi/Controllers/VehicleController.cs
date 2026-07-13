@@ -4,7 +4,6 @@ using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.Contracts.Models.UpdateModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
 using VehicleTracker.Application.UseCases.Vehicle.Command;
-using VehicleTracker.Application.UseCases.Vehicle.Query;
 using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicleById;
 using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicles;
 using VehicleTracker.Domain.Enums;

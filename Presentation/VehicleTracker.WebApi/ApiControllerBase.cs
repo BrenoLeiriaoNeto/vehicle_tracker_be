@@ -25,4 +25,16 @@ public abstract class ApiControllerBase : ControllerBase
                 : userId;
         }
     }
+
+    protected string CurrentUserName
+    {
+        get
+        {
+            var userName = User.FindFirst(ClaimTypes.Name)?.Value;
+            
+            return string.IsNullOrEmpty(userName)
+                ? throw new InvalidOperationException(" O nome do usuário não foi encontrado no token.")
+                : userName;
+        }
+    }
 }

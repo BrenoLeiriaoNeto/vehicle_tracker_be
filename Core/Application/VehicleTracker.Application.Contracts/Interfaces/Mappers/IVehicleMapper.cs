@@ -10,4 +10,5 @@ public interface IVehicleMapper
     Vehicle MapToDomain(CreateVehicleInputModel input);
     Vehicle MapToDomain(VehicleUpdateModel update);
     VehicleViewModel MapToViewModel(Vehicle domain);
+    IEnumerable<VehicleViewModel> MapToListViewModels(IEnumerable<Vehicle> domain);
 }

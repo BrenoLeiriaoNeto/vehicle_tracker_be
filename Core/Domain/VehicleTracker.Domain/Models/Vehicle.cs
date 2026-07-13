@@ -17,8 +17,9 @@ public class Vehicle : BusinessValues
 
     public Vehicle() {}
 
-    public Vehicle(double? currentKm, VehicleStatus? status)
+    public Vehicle(string id, double? currentKm, VehicleStatus? status)
     {
+        Id = id;
         CurrentKm = currentKm ?? CurrentKm;
         Status = status ?? Status;
     }

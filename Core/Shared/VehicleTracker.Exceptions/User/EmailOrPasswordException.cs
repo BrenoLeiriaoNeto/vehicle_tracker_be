@@ -1,4 +1,4 @@
 namespace VehicleTracker.Exceptions;
 
-public class BusinessRuleException(string message) 
+public class EmailOrPasswordException(string message) 
     : VehicleTrackerException("Erro de negócio", message, 400){}

@@ -13,27 +13,37 @@ public class GlobalExceptionHandler(
         Exception exception,
         CancellationToken cancellationToken)
     {
-        
-        logger.LogError(exception, "Execução capturada: {Message}", exception.Message);
 
         var (statusCode, title, detail) = exception switch
         {
-            CustomValidationException valEx => (
+            CustomValidationException => (
                 StatusCodes.Status400BadRequest,
                 "Erro de Validação",
                 "Preencha os campos corretamente."
             ),
 
-            ConflictException => (
-                StatusCodes.Status409Conflict,
-                "Conflito de dados",
-                exception.Message),
+            VehicleTrackerException baseEx => (
+                baseEx.StatusCode,
+                baseEx.Title,
+                baseEx.Message
+                ),
 
             _ => (
                 StatusCodes.Status500InternalServerError,
                 "Erro Interno no Servidor",
-                "Ocorreu um erro inesperado.")
+                "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde")
         };
+
+        if (statusCode == StatusCodes.Status500InternalServerError)
+        {
+            logger.LogError(exception, "🚨 Erro não tratado capturado: {Message}",
+                exception.Message);
+        }
+        else
+        {
+            logger.LogWarning("⚠️ Aviso de negócio ({StatusCode}): {Message}", statusCode,
+                exception.Message);
+        }
 
         var problemDetails = new ProblemDetails
         {

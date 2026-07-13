@@ -24,6 +24,7 @@ public class VehicleMapper : IVehicleMapper
     public Vehicle MapToDomain(VehicleUpdateModel update)
     {
         return new Vehicle(
+            update.Id,
             update.CurrentKm,
             update.Status
         );
@@ -40,4 +41,7 @@ public class VehicleMapper : IVehicleMapper
             domain.Status
         );
     }
+
+    public IEnumerable<VehicleViewModel> MapToListViewModels(IEnumerable<Vehicle> domain) =>
+        domain.Select(MapToViewModel);
 }

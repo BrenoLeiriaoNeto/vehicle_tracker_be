@@ -6,4 +6,5 @@ public interface IAuthQueryRepository
 {
     Task<bool> IsEmailUnique(string email, CancellationToken ct);
     Task<User?> GetUserByEmailAsync(string email, CancellationToken ct);
+    Task<bool> IsUserOwnerAsync(string userId, CancellationToken ct);
 }

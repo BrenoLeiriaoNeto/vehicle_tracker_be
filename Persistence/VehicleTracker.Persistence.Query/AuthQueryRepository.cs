@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
+using VehicleTracker.Domain.Enums;
 using VehicleTracker.Domain.Models;
 
 namespace VehicleTracker.Persistence.Query;
@@ -22,5 +23,18 @@ public class AuthQueryRepository(IMongoDatabase database) : IAuthQueryRepository
     {
         return await _usersCollection.Find(x => x.Auth.Email == email.ToLower().Trim())
             .FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<bool> IsUserOwnerAsync(string userId, CancellationToken ct)
+    {
+
+        var filter = Builders<User>.Filter.And(
+            Builders<User>.Filter.Eq(x => x.Id, userId),
+            Builders<User>.Filter.Eq(x => x.Auth.Role, UserRole.Owner));
+        
+        var isOwner = await _usersCollection.Find(filter).AnyAsync(ct);
+
+        return !isOwner;
+
     }
 }

@@ -1,7 +1,6 @@
 using OpenTelemetry.Logs;
 using VehicleTracker.Infrastructure.DependencyInjection;
 using VehicleTracker.Application;
-using VehicleTracker.Application.UseCases.Auth.Handlers;
 using VehicleTracker.WebApi.Exceptions;
 using VehicleTracker.WebApi.Extensions;
 
@@ -18,7 +17,7 @@ builder.Services.AddApplication(builder.Configuration);
 
 builder.Services.AddMediatR(cfg =>
 {
-    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(IApplicationMarker).Assembly);
 });
 
 builder.Logging.AddOpenTelemetry(logging =>
@@ -33,13 +32,18 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 await app.ApplyMongoIndexesAsync();

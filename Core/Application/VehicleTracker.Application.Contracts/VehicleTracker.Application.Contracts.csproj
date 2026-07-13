@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Models\UpdateModels\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\Domain\VehicleTracker.Domain\VehicleTracker.Domain.csproj" />
     </ItemGroup>
 

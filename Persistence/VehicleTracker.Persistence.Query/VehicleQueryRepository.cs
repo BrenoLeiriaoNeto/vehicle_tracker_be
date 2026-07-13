@@ -12,11 +12,6 @@ public class VehicleQueryRepository(IMongoDatabase database) : IVehicleQueryRepo
     
     private static readonly FilterDefinition<Vehicle> ActiveVehiclesFilter
         = Builders<Vehicle>.Filter.Eq(x => x.IsDeleted, false);
-    
-    public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync(CancellationToken ct)
-    {
-        return await _vehiclesCollection.Find(ActiveVehiclesFilter).ToListAsync(ct);
-    }
 
     public async Task<Vehicle> GetVehicleByIdAsync(string id, CancellationToken ct)
     {
@@ -25,16 +20,20 @@ public class VehicleQueryRepository(IMongoDatabase database) : IVehicleQueryRepo
         return await _vehiclesCollection.Find(filter).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<IEnumerable<Vehicle>> GetVehiclesByStatusAsync(VehicleStatus status, CancellationToken ct)
+    public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleStatus? status, string? userId,
+        CancellationToken ct)
     {
-        var filter = Builders<Vehicle>.Filter.Eq(x => x.Status, status) & ActiveVehiclesFilter;
-        
-        return await _vehiclesCollection.Find(filter).ToListAsync(ct);
-    }
+        var filter = ActiveVehiclesFilter;
 
-    public async Task<IEnumerable<Vehicle>> GetVehiclesByUserIdAsync(string userId, CancellationToken ct)
-    {
-        var filter = Builders<Vehicle>.Filter.Eq(x => x.OwnerId, userId) & ActiveVehiclesFilter;
+        if (status.HasValue)
+        {
+            filter &= Builders<Vehicle>.Filter.Eq(x => x.Status, status.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(userId))
+        {
+            filter &= Builders<Vehicle>.Filter.Eq(x => x.OwnerId, userId);
+        }
         
         return await _vehiclesCollection.Find(filter).ToListAsync(ct);
     }

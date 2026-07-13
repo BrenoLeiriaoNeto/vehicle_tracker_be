@@ -2,10 +2,9 @@ using MediatR;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.UseCases.Vehicle.Query;
 using VehicleTracker.Exceptions.Vehicle;
 
-namespace VehicleTracker.Application.UseCases.Vehicle.Handlers;
+namespace VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicleById;
 
 public class GetVehicleByIdQueryHandler(
     IVehicleQueryRepository queryRepository,

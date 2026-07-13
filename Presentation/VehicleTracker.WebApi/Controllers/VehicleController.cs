@@ -5,6 +5,8 @@ using VehicleTracker.Application.Contracts.Models.UpdateModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
 using VehicleTracker.Application.UseCases.Vehicle.Command;
 using VehicleTracker.Application.UseCases.Vehicle.Query;
+using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicleById;
+using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicles;
 using VehicleTracker.Domain.Enums;
 
 namespace VehicleTracker.WebApi.Controllers;
@@ -21,7 +23,7 @@ public class VehicleController : ApiControllerBase
 
         await Mediator.Send(command, ct);
 
-        return Ok();
+        return Created();
     }
 
     [HttpPatch("vehicle/{id}/status")]
@@ -63,10 +65,10 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpPatch("vehicle/{id}")]
+    [HttpPatch("vehicle/{id}/activate")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateVehicle([FromRoute] string id, CancellationToken ct)
+    public async Task<IActionResult> ActivateVehicle([FromRoute] string id, CancellationToken ct)
     {
         var command = new ActivateVehicleCommand(id);
 
@@ -101,33 +103,15 @@ public class VehicleController : ApiControllerBase
 
     [HttpGet("vehicles")]
     [ProducesResponseType(typeof(List<VehicleViewModel>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllVehicles(CancellationToken ct)
-    {
-        var query = new GetAllVehiclesQuery();
-
-        var vehicles = await Mediator.Send(query, ct);
-        
-        return Ok(vehicles);
-    }
-
-    [HttpGet("vehicles-status")]
-    [ProducesResponseType(typeof(List<VehicleViewModel>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetVehiclesByStatus([FromQuery] VehicleStatus status,
+    public async Task<IActionResult> GetVehicles(
+        [FromQuery] VehicleStatus? status,
+        [FromQuery] bool onlyMyVehicles,
         CancellationToken ct)
     {
-        var query = new GetVehiclesByStatusQuery(status);
-        
-        var vehicles = await Mediator.Send(query, ct);
-        
-        return Ok(vehicles);
-    }
+        var userId = onlyMyVehicles ? CurrentUserId : null;
 
-    [HttpGet("vehicles-user")]
-    [ProducesResponseType(typeof(List<VehicleViewModel>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetVehiclesByUserId(CancellationToken ct)
-    {
-        var query = new GetVehiclesByUserIdQuery(CurrentUserId);
-
+        var query = new GetVehiclesQuery(status, userId);
+        
         var vehicles = await Mediator.Send(query, ct);
         
         return Ok(vehicles);

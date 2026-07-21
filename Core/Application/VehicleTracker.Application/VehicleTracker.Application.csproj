@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="UseCases\Driver\Query\" />
       <Folder Include="UseCases\Invitations\Query\" />
-      <Folder Include="UseCases\Profile\" />
     </ItemGroup>
 
     <ItemGroup>

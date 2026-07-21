@@ -3,7 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.Contracts.Models.UpdateModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.UseCases.Vehicle.Command;
+using VehicleTracker.Application.UseCases.Vehicle.Command.ActivateVehicle;
+using VehicleTracker.Application.UseCases.Vehicle.Command.CreateVehicle;
+using VehicleTracker.Application.UseCases.Vehicle.Command.DeleteVehicle;
+using VehicleTracker.Application.UseCases.Vehicle.Command.UpdateVehicleCurrentKm;
+using VehicleTracker.Application.UseCases.Vehicle.Command.UpdateVehicleStatus;
+using VehicleTracker.Application.UseCases.Vehicle.Command.UpdateVehicleStatusAndKm;
 using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicleById;
 using VehicleTracker.Application.UseCases.Vehicle.Query.GetVehicles;
 using VehicleTracker.Domain.Enums;
@@ -12,7 +17,7 @@ namespace VehicleTracker.WebApi.Controllers;
 
 public class VehicleController : ApiControllerBase
 {
-    [HttpPost("vehicle")]
+    [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateVehicle([FromBody] CreateVehicleInputModel input,
@@ -25,7 +30,7 @@ public class VehicleController : ApiControllerBase
         return Created();
     }
 
-    [HttpPatch("vehicle/{id}/status")]
+    [HttpPatch("{id}/status")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateVehicleStatus([FromRoute] string id,
@@ -38,7 +43,7 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpPatch("vehicle/{id}/km")]
+    [HttpPatch("{id}/km")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateVehicleKm([FromRoute] string id,
@@ -51,7 +56,7 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpPatch("vehicle/{id}/status-km")]
+    [HttpPatch("{id}/status-km")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateVehicleStatusAndKm([FromRoute] string id,
@@ -64,7 +69,7 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpPatch("vehicle/{id}/activate")]
+    [HttpPatch("{id}/activate")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ActivateVehicle([FromRoute] string id, CancellationToken ct)
@@ -76,7 +81,7 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpDelete("vehicle/{id}")]
+    [HttpDelete("{id}")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteVehicle([FromRoute] string id, CancellationToken ct)
@@ -88,7 +93,7 @@ public class VehicleController : ApiControllerBase
         return NoContent();
     }
 
-    [HttpGet("vehicle/{id}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(VehicleViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetVehicleById([FromRoute] string id, CancellationToken ct)
@@ -100,7 +105,7 @@ public class VehicleController : ApiControllerBase
         return Ok(vehicle);
     }
 
-    [HttpGet("vehicles")]
+    [HttpGet("all")]
     [ProducesResponseType(typeof(List<VehicleViewModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetVehicles(
         [FromQuery] VehicleStatus? status,

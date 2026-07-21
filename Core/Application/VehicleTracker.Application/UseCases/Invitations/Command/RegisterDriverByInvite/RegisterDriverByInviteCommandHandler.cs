@@ -5,10 +5,9 @@ using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
 using VehicleTracker.Application.Contracts.Interfaces.Services;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.UseCases.Invitations.Command;
-using VehicleTracker.Exceptions;
+using VehicleTracker.Exceptions.User;
 
-namespace VehicleTracker.Application.UseCases.Invitations.Handlers;
+namespace VehicleTracker.Application.UseCases.Invitations.Command.RegisterDriverByInvite;
 
 public class RegisterDriverByInviteCommandHandler(
     IInvitationCommandRepository commandRepository,

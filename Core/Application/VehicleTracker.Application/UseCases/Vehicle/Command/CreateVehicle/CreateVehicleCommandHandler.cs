@@ -1,9 +1,8 @@
 using MediatR;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
-using VehicleTracker.Application.UseCases.Vehicle.Command;
 
-namespace VehicleTracker.Application.UseCases.Vehicle.Handlers;
+namespace VehicleTracker.Application.UseCases.Vehicle.Command.CreateVehicle;
 
 public class CreateVehicleCommandHandler(
     IVehicleCommandRepository commandRepository,

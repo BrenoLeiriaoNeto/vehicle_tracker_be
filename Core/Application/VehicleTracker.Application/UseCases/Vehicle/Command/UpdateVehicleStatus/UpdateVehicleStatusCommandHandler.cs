@@ -1,10 +1,9 @@
 using MediatR;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
-using VehicleTracker.Application.UseCases.Vehicle.Command;
 using VehicleTracker.Exceptions.Vehicle;
 
-namespace VehicleTracker.Application.UseCases.Vehicle.Handlers;
+namespace VehicleTracker.Application.UseCases.Vehicle.Command.UpdateVehicleStatus;
 
 public class UpdateVehicleStatusCommandHandler(
     IVehicleCommandRepository commandRepository,

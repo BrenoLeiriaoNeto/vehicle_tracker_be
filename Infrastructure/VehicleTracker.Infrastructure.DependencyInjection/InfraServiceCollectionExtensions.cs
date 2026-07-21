@@ -1,5 +1,7 @@
+using Amazon.S3;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
@@ -21,6 +23,31 @@ public static class InfraServiceCollectionExtensions
             services.AddPersistence(configuration);
             services.AddRepositories();
             services.AddServices(configuration);
+            services.AddCloudflare(configuration);
+
+            return services;
+        }
+
+        private IServiceCollection AddCloudflare(IConfiguration configuration)
+        {
+            services.Configure<CloudflareR2Settings>(
+                configuration.GetSection(CloudflareR2Settings.SectionName)
+            );
+
+            services.AddSingleton<IAmazonS3>(sp =>
+            {
+                var settings = sp.GetRequiredService<IOptions<CloudflareR2Settings>>().Value;
+
+                var config = new AmazonS3Config
+                {
+                    ServiceURL = settings.ServiceUrl,
+                    ForcePathStyle = true
+                };
+
+                return new AmazonS3Client(settings.AccessKeyId, settings.SecretAccessKey, config);
+            });
+
+            services.AddScoped<IStorageService, CloudflareR2StorageService>();
 
             return services;
         }
@@ -66,6 +93,9 @@ public static class InfraServiceCollectionExtensions
             
             services.AddScoped<IVehicleCommandRepository, VehicleCommandRepository>();
             services.AddScoped<IVehicleQueryRepository, VehicleQueryRepository>();
+
+            services.AddScoped<IProfileCommandRepository, ProfileCommandRepository>();
+            services.AddScoped<IProfileQueryRepository, ProfileQueryRepository>();
 
             return services;
         }

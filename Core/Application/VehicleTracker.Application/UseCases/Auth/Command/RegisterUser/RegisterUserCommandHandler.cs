@@ -3,9 +3,8 @@ using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Interfaces.Services;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.UseCases.Auth.Command;
 
-namespace VehicleTracker.Application.UseCases.Auth.Handlers;
+namespace VehicleTracker.Application.UseCases.Auth.Command.RegisterUser;
 
 public class RegisterUserCommandHandler(
     IAuthCommandRepository commandRepository,

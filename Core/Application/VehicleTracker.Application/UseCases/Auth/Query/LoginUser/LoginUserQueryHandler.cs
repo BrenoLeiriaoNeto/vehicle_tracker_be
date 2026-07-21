@@ -4,10 +4,9 @@ using VehicleTracker.Application.Contracts.Interfaces.Mappers;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
 using VehicleTracker.Application.Contracts.Interfaces.Services;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
-using VehicleTracker.Application.UseCases.Auth.Query;
-using VehicleTracker.Exceptions;
+using VehicleTracker.Exceptions.User;
 
-namespace VehicleTracker.Application.UseCases.Auth.Handlers;
+namespace VehicleTracker.Application.UseCases.Auth.Query.LoginUser;
 
 public class LoginUserQueryHandler(
     IAuthQueryRepository queryRepository,

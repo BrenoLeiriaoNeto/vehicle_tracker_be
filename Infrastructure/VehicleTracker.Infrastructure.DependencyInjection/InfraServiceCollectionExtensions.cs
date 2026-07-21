@@ -1,6 +1,7 @@
 using Amazon.S3;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Query;
@@ -29,17 +30,22 @@ public static class InfraServiceCollectionExtensions
 
         private IServiceCollection AddCloudflare(IConfiguration configuration)
         {
-            var r2Config = configuration.GetSection("CloudflareR2");
-
-            var s3Config = new AmazonS3Config
-            {
-                ServiceURL = r2Config["ServiceUrl"],
-                ForcePathStyle = true
-            };
+            services.Configure<CloudflareR2Settings>(
+                configuration.GetSection(CloudflareR2Settings.SectionName)
+            );
 
             services.AddSingleton<IAmazonS3>(sp =>
-                new AmazonS3Client(r2Config["AccessKey"],
-                    r2Config["SecretKey"], s3Config));
+            {
+                var settings = sp.GetRequiredService<IOptions<CloudflareR2Settings>>().Value;
+
+                var config = new AmazonS3Config
+                {
+                    ServiceURL = settings.ServiceUrl,
+                    ForcePathStyle = true
+                };
+
+                return new AmazonS3Client(settings.AccessKeyId, settings.SecretAccessKey, config);
+            });
 
             services.AddScoped<IStorageService, CloudflareR2StorageService>();
 

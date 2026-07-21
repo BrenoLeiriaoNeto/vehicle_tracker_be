@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.UseCases.Invitations.Command;
+using VehicleTracker.Application.UseCases.Invitations.Command.CreateInvitation;
 
 namespace VehicleTracker.WebApi.Controllers;
 

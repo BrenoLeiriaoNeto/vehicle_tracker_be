@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.UseCases.Driver.Command;
+using VehicleTracker.Application.UseCases.Driver.Command.ManualRegisterDriver;
 
 namespace VehicleTracker.WebApi.Controllers;
 

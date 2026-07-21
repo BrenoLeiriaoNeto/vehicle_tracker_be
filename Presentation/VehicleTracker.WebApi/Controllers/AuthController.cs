@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleTracker.Application.Contracts.Models.InputModels;
 using VehicleTracker.Application.Contracts.Models.ViewModels;
 using VehicleTracker.Application.UseCases.Auth.Command;
+using VehicleTracker.Application.UseCases.Auth.Command.RegisterUser;
 using VehicleTracker.Application.UseCases.Auth.Query;
+using VehicleTracker.Application.UseCases.Auth.Query.LoginUser;
 using VehicleTracker.Application.UseCases.Invitations.Command;
+using VehicleTracker.Application.UseCases.Invitations.Command.RegisterDriverByInvite;
 
 namespace VehicleTracker.WebApi.Controllers;
 

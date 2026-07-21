@@ -1,12 +1,10 @@
 using MediatR;
 using VehicleTracker.Application.Contracts.Interfaces.Command;
 using VehicleTracker.Application.Contracts.Interfaces.Mappers;
-using VehicleTracker.Application.Contracts.Interfaces.Query;
 using VehicleTracker.Application.Contracts.Interfaces.Services;
-using VehicleTracker.Application.UseCases.Driver.Command;
 using VehicleTracker.Exceptions;
 
-namespace VehicleTracker.Application.UseCases.Driver.Handlers;
+namespace VehicleTracker.Application.UseCases.Driver.Command.ManualRegisterDriver;
 
 public class ManualRegisterDriverCommandHandler(
     IAuthCommandRepository commandRepository,

@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -21,6 +22,26 @@ public static class InfraServiceCollectionExtensions
             services.AddPersistence(configuration);
             services.AddRepositories();
             services.AddServices(configuration);
+            services.AddCloudflare(configuration);
+
+            return services;
+        }
+
+        private IServiceCollection AddCloudflare(IConfiguration configuration)
+        {
+            var r2Config = configuration.GetSection("CloudflareR2");
+
+            var s3Config = new AmazonS3Config
+            {
+                ServiceURL = r2Config["ServiceUrl"],
+                ForcePathStyle = true
+            };
+
+            services.AddSingleton<IAmazonS3>(sp =>
+                new AmazonS3Client(r2Config["AccessKey"],
+                    r2Config["SecretKey"], s3Config));
+
+            services.AddScoped<IStorageService, CloudflareR2StorageService>();
 
             return services;
         }
@@ -66,6 +87,9 @@ public static class InfraServiceCollectionExtensions
             
             services.AddScoped<IVehicleCommandRepository, VehicleCommandRepository>();
             services.AddScoped<IVehicleQueryRepository, VehicleQueryRepository>();
+
+            services.AddScoped<IProfileCommandRepository, ProfileCommandRepository>();
+            services.AddScoped<IProfileQueryRepository, ProfileQueryRepository>();
 
             return services;
         }
